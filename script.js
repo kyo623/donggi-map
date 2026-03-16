@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nicknameInput = document.getElementById('nickname-input');
     const authBtn = document.getElementById('auth-btn');
 
-    const allowedNicknames = ["1004", "222", "amy", "dang", "ellia", "hae", "ian", "kuchipachi", "nemo", "nonew", "noun", "sin", "tomo", "yoonin", "alice", "bulkyboy", "bo", "dan", "gregory", "kyo", "malangko", "momlove", "oyajitchi", "soori", "wal7676", "yongari", "zero", "i1i11i"];
+    const allowedNicknames = ["1004", "222", "amy", "dang", "ellia", "hae", "ian", "kuchipatchi", "nemo", "nonew", "noun", "sin", "tomo", "yoonin", "alice", "bulkyboy", "bo", "dan", "gregory", "kyo", "malangko", "momlove", "oyajitchi", "soori", "wal7676", "yongari", "zero", "i1i11i"];
 
     nicknameInput.focus();
 
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             void nicknameInput.offsetWidth; // Trigger reflow to restart animation
             nicknameInput.classList.add('shake');
             nicknameInput.value = ''; // clear input
-            nicknameInput.placeholder = "당신의 별명이 아니시네요!";
+            nicknameInput.placeholder = "ACCESS DENIED";
         }
     };
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         landmarkContent.style.filter = COUNTER_FILTER;
         landmarkContent.innerHTML = `
             <div style="width: 24px; height: 24px; background: var(--accent-color); border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 20px rgba(255, 94, 0, 0.8), 0 0 40px rgba(255, 94, 0, 0.4); animation: pulse 2s infinite;"></div>
-            <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: var(--panel-bg); color: var(--accent-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; font-size: 14px; white-space: nowrap; border: 1px solid var(--accent-color);">국민대학교</div>
+            <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: var(--panel-bg); color: var(--accent-color); padding: 4px 10px; border-radius: 4px; font-weight: 800; font-size: 14px; white-space: nowrap; border: 1px solid var(--accent-color);">KOOKMIN UNIV.</div>
         `;
         new kakao.maps.CustomOverlay({
             position: kookminPos,
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const query = searchInput.value.trim();
             if (!query) return;
 
-            searchResults.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 24px; cursor: default;">검색 중...</li>';
+            searchResults.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 24px; cursor: default;">Searching...</li>';
 
             // Set search options: location (Kookmin Univ) and sort by distance
             const searchOptions = {
@@ -127,12 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
             searchResults.innerHTML = '';
 
             if (status === kakao.maps.services.Status.ZERO_RESULT || data.length === 0) {
-                searchResults.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 24px; cursor: default;">검색 결과가 없습니다.</li>';
+                searchResults.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 24px; cursor: default;">No Records Found.</li>';
                 return;
             }
 
             if (status === kakao.maps.services.Status.ERROR) {
-                searchResults.innerHTML = '<li style="text-align:center; color:#ff4444; padding: 24px; cursor: default;">검색 중 오류가 발생했습니다.</li>';
+                searchResults.innerHTML = '<li style="text-align:center; color:#ff4444; padding: 24px; cursor: default;">SYSTEM ERROR</li>';
                 return;
             }
 
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const distanceStr = (place.distance / 1000).toFixed(1); // distance in km
 
                 li.innerHTML = `
-                        <strong>${place.place_name} <span style="font-size:12px; color:var(--accent-color); font-weight:normal; margin-left: 6px;">(국민대에서 ${distanceStr}km)</span></strong>
+                        <strong>${place.place_name} <span style="font-size:12px; color:var(--accent-color); font-weight:normal; margin-left: 6px;">(${distanceStr}km from KMU)</span></strong>
                         <span>${place.road_address_name || place.address_name}</span>
                     `;
 
@@ -169,26 +169,26 @@ document.addEventListener('DOMContentLoaded', () => {
             contentStr.innerHTML = `
                 <div class="popup-title">${place.place_name}</div>
                 <div style="font-size:12px; color:var(--text-muted); margin-bottom: 12px; word-break: keep-all;">${categoryText} | ${place.road_address_name || place.address_name}</div>
-                <button class="register-btn" id="recommend-btn">📍 이 장소 추천하기</button>
+                <button class="register-btn" id="recommend-btn">[+] ADD HOTSPOT</button>
                 <div class="close-btn" style="position:absolute; top:8px; right:12px; cursor:pointer; font-size:18px; color:var(--text-muted);">&times;</div>
                 
                 <div id="recommend-form" style="display: none; margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; text-align: left;">
                     <div style="margin-bottom: 8px;">
                         <select id="tag-select" style="width:100%; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--accent-color); color: #fff; border-radius: 4px; outline:none; font-family: inherit;">
-                            <option value="맛집">🍔 #맛집 (놀러가기)</option>
-                            <option value="야작">🍕 #야작용 (배달)</option>
-                            <option value="카페">☕️ #카페 (감성)</option>
-                            <option value="카공">💻 #카공 (집중)</option>
+                            <option value="맛집">🍔 #FOOD_Spot</option>
+                            <option value="야작">🍕 #LATE_Night</option>
+                            <option value="카페">☕️ #CAFE</option>
+                            <option value="카공">💻 #STUDY</option>
                         </select>
                     </div>
-                    ${isCustom ? `<input type="text" id="custom-name-input" placeholder="직접 장소 이름 입력" autocomplete="off" style="width:100%; padding: 8px; margin-bottom: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius:4px; box-sizing: border-box;">` : ''}
+                    ${isCustom ? `<input type="text" id="custom-name-input" placeholder="Custom Location Name" autocomplete="off" style="width:100%; padding: 8px; margin-bottom: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius:4px; box-sizing: border-box;">` : ''}
                     <div style="margin-bottom: 8px;">
-                        <input type="text" id="menu-input" placeholder="추천 메뉴 (예: 연어덮밥)" autocomplete="off" style="width:100%; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius: 4px; outline:none; box-sizing: border-box;">
+                        <input type="text" id="menu-input" placeholder="Signature Menu" autocomplete="off" style="width:100%; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius: 4px; outline:none; box-sizing: border-box;">
                     </div>
                     <div style="margin-bottom: 8px;">
-                        <input type="text" id="comment-input" placeholder="동기들에게 한마디!" autocomplete="off" style="width:100%; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius: 4px; outline:none; box-sizing: border-box;">
+                        <input type="text" id="comment-input" placeholder="Archive Notes" autocomplete="off" style="width:100%; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius: 4px; outline:none; box-sizing: border-box;">
                     </div>
-                    <button class="register-btn" id="final-reg-btn" style="background: var(--accent-hover); width: 100%;">💾 맵에 저장하기</button>
+                    <button class="register-btn" id="final-reg-btn" style="background: var(--accent-hover); width: 100%;">SYNC DATA</button>
                 </div>
             `;
 
@@ -212,15 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const comment = contentStr.querySelector('#comment-input').value.trim();
                 const finalName = isCustom ? (contentStr.querySelector('#custom-name-input').value.trim() || place.place_name) : place.place_name;
 
-                if (isCustom && finalName === '직접 지정 위치') {
-                    alert('장소 이름을 입력해주세요!');
+                if (isCustom && finalName === 'Custom Location') {
+                    alert('Location name is required.');
                     return;
                 }
 
                 const address = place.road_address_name || place.address_name;
                 const lat = place.y || latlng.getLat();
                 const lon = place.x || latlng.getLng();
-                const author = localStorage.getItem('current_nickname') || '익명동기';
+                const author = localStorage.getItem('current_nickname') || 'Unknown_Agent';
 
                 registerPlace(finalName, lat, lon, address, tag, menu, comment, author);
             };
@@ -252,17 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             // If no place found, fallback to geocoder for address
                             const geocoder = new kakao.maps.services.Geocoder();
                             geocoder.coord2Address(latlng.getLng(), latlng.getLat(), (addrData, addrStatus) => {
-                                let address = "주소 없는 지역";
+                                let address = "Unmapped Area";
                                 if (addrStatus === kakao.maps.services.Status.OK && addrData.length > 0) {
                                     address = addrData[0].road_address ? addrData[0].road_address.address_name : addrData[0].address.address_name;
                                 }
                                 showPlacePopup({
-                                    place_name: '직접 지정 위치',
+                                    place_name: 'Custom Location',
                                     road_address_name: address,
                                     address_name: address,
                                     y: latlng.getLat(),
                                     x: latlng.getLng(),
-                                    category_name: '사용자 지정'
+                                    category_name: 'Custom'
                                 }, latlng, true);
                             });
                         }
@@ -273,9 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         async function registerPlace(name, lat, lon, address, tag, menu, comment, author) {
             const newPlaceData = {
-                nickname: author || '익명동기',
+                nickname: author || 'Anonymous',
                 place_name: name,
-                tag: tag || '맛집',
+                tag: tag || 'Dining',
                 menu: menu || '',
                 review: comment || '',
                 lat: lat,
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (error) {
                 console.error('Insert 오류:', error);
-                alert('장소를 저장하는 중 오류가 발생했습니다.');
+                alert('Error saving data to the archive.');
                 return;
             }
 
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         async function loadArchive() {
             try {
-                archiveListBody.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 32px 0; border:none; background:transparent; cursor:default;">데이터를 불러오는 중입니다...</li>';
+                archiveListBody.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 32px 0; border:none; background:transparent; cursor:default;">Synchronizing data...</li>';
 
                 const { data, error } = await supabase
                     .from('places')
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.globalArchiveData = data.map(row => ({
                     id: row.id,
                     name: row.place_name,
-                    address: '지도 지정 장소', // DB schema lacks address, using a fallback
+                    address: 'Map Selected Location', // DB schema lacks address, using a fallback
                     lat: row.lat,
                     lon: row.lng,
                     tag: row.tag,
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const newPlace = {
                                 id: row.id,
                                 name: row.place_name,
-                                address: '지도 지정 장소',
+                                address: 'Map Selected Location',
                                 lat: row.lat,
                                 lon: row.lng,
                                 tag: row.tag,
@@ -361,14 +361,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (err) {
                 console.error('Supabase DB 연결 오류:', err);
-                archiveListBody.innerHTML = '<li style="text-align:center; color:#ff4444; padding: 32px 0; border:none; background:transparent; cursor:default;">데이터베이스 연결에 실패했습니다.<br>콘솔창을 확인하세요.</li>';
+                archiveListBody.innerHTML = '<li style="text-align:center; color:#ff4444; padding: 32px 0; border:none; background:transparent; cursor:default;">Failed to connect to the database.<br>Please check the console.</li>';
             }
         }
 
         function getTagColor(tag) {
             switch (tag) {
+                case 'Delivery':
                 case '야작': return '#00E5FF';
+                case 'Cafe':
                 case '카페': return '#FF00FF';
+                case 'Focus':
                 case '카공': return '#00FF00';
                 default: return 'var(--accent-color)';
             }
@@ -390,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div style="background: ${tagColor}; color: #000; padding: 2px 6px; border-radius: 4px; font-weight: 800; display: inline-block; margin-bottom: 6px; font-size: 10px;">#${place.tag}</div>
                             <strong style="color:${tagColor}; display:block; font-size:15px; margin-bottom:4px;">${place.name}</strong>
                             <span style="color:var(--text-muted); display:block; margin-bottom: 8px;">${place.address}</span>
-                            ${place.menu ? `<div style="margin-bottom: 4px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 6px; text-align: left;"><strong>🍽️ 추천:</strong> <span style="color: #fff;">${place.menu}</span></div>` : ''}
+                            ${place.menu ? `<div style="margin-bottom: 4px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 6px; text-align: left;"><strong>RECOMMEND:</strong> <span style="color: #fff;">${place.menu}</span></div>` : ''}
                             ${place.comment ? `<div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 6px; margin-top: 6px; text-align: left;"><em style="color: #ddd;">"${place.comment}"</em><br><div style="color:var(--text-muted); font-size:11px; margin-top: 4px; text-align: right;">- by <b>${place.author}</b></div></div>` : ''}
                         </div>
                     </div>
@@ -443,21 +446,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="popup-title" style="font-size: 18px; margin-bottom: 4px; text-align: left;">${place.name}</div>
                 <div style="font-size:12px; color:var(--text-muted); margin-bottom: 12px; text-align: left; word-break: keep-all;">${place.address}</div>
                 
-                ${place.menu ? `<div style="margin-bottom: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; text-align: left;"><strong>🍽️ 추천 메뉴:</strong> <span style="color: #fff;">${place.menu}</span></div>` : ''}
+                ${place.menu ? `<div style="margin-bottom: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; text-align: left;"><strong>RECOMMEND:</strong> <span style="color: #fff;">${place.menu}</span></div>` : ''}
                 
                 <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; max-height: 150px; overflow-y: auto; text-align: left; margin-bottom: 12px;">
-                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-align: center;">--- 동기들의 리뷰 ---</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px; text-align: center;">--- ARCHIVE RECORDS ---</div>
                     ${place.comment ? `
                     <div style="background: rgba(255,255,255,0.05); padding: 8px; border-radius: 6px; margin-bottom: 6px;">
-                        <strong style="color:var(--accent-color); font-size: 11px;">${place.author} (최초 추천자)</strong>
+                        <strong style="color:var(--accent-color); font-size: 11px;">${place.author} (Origin)</strong>
                         <div style="font-size: 12px; margin-top: 2px; color: #fff;">${place.comment}</div>
                     </div>` : ''}
                     ${repliesHtml}
                 </div>
                 
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="reply-input" placeholder="댓글 달기..." autocomplete="off" style="flex: 1; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius: 4px; outline:none; box-sizing: border-box; font-size: 12px;">
-                    <button class="register-btn" id="reply-btn" style="background: var(--accent-hover); width: auto; font-size: 12px; padding: 0 12px; margin: 0;">등록</button>
+                    <input type="text" id="reply-input" placeholder="Add a record..." autocomplete="off" style="flex: 1; padding: 8px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.3); color:#fff; border-radius: 4px; outline:none; box-sizing: border-box; font-size: 12px;">
+                    <button class="register-btn" id="reply-btn" style="background: var(--accent-hover); width: auto; font-size: 12px; padding: 0 12px; margin: 0;">SUBMIT</button>
                 </div>
             `;
 
@@ -470,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const text = replyInput.value.trim();
                 if (!text) return;
 
-                const author = localStorage.getItem('current_nickname') || '익명동기';
+                const author = localStorage.getItem('current_nickname') || 'Anonymous';
 
                 const targetIdx = window.globalArchiveData.findIndex(p => p.id === place.id);
                 if (targetIdx > -1) {
@@ -505,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
             archiveListBody.innerHTML = '';
 
             if (archiveData.length === 0) {
-                archiveListBody.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 32px 0; border:none; background:transparent; cursor:default;">아직 등록된 맛집이 없습니다.<br>검색하여 첫 번째 맛집을 추가해보세요.</li>';
+                archiveListBody.innerHTML = '<li style="text-align:center; color:var(--text-muted); padding: 32px 0; border:none; background:transparent; cursor:default;">Archive is empty.<br>Search and register the first spot.</li>';
                 return;
             }
 
