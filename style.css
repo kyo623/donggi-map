@@ -1,0 +1,521 @@
+:root {
+    --bg-color: #111111;
+    --panel-bg: #1a1a1c;
+    --text-color: #f1f1f1;
+    --text-muted: #888888;
+    --accent-color: #FF5E00;
+    --accent-hover: #ff7c33;
+    --border-color: #2a2a2d;
+    --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    height: 100vh;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Sidebar (Left 30%) */
+.sidebar {
+    width: 30%;
+    min-width: 330px;
+    background-color: var(--panel-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+header {
+    margin-bottom: 32px;
+}
+
+header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+header h1 span {
+    color: var(--accent-color);
+}
+
+header p {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* Search Section */
+.search-section {
+    margin-bottom: 40px;
+}
+
+.search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+#search-input {
+    flex: 1;
+    background-color: #222224;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#search-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 94, 0, 0.2);
+}
+
+#search-input::placeholder {
+    color: #666;
+}
+
+#search-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#search-btn:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 94, 0, 0.3);
+}
+
+#search-btn:active {
+    transform: translateY(1px);
+}
+
+/* Search Results & Archive List */
+.results-list,
+.archive-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.results-list li,
+.archive-list li {
+    background-color: #222224;
+    border: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.results-list li:hover,
+.archive-list li:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    background-color: #2a2a2d;
+}
+
+.results-list li strong,
+.archive-list li strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: var(--text-color);
+}
+
+.archive-list li strong {
+    color: var(--accent-color);
+}
+
+.results-list li span,
+.archive-list li span {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+/* Archive Section */
+.archive-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.archive-section h2 {
+    font-size: 16px;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.archive-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+    /* for scrollbar */
+}
+
+/* Custom Scrollbar for Sidebar */
+aside::-webkit-scrollbar,
+.archive-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+aside::-webkit-scrollbar-track,
+.archive-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+aside::-webkit-scrollbar-thumb,
+.archive-list::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+}
+
+aside::-webkit-scrollbar-thumb:hover,
+.archive-list::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Map Container (Right 70%) */
+.map-container {
+    width: 70%;
+    height: 100vh;
+    position: relative;
+    background-color: var(--bg-color);
+    /* for loading */
+    z-index: 1;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Kakao Popup override */
+.kakao-popup {
+    background-color: var(--panel-bg);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    min-width: 200px;
+}
+
+.kakao-popup::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: var(--accent-color) transparent transparent transparent;
+}
+
+.kakao-popup::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 9px 9px 0;
+    border-style: solid;
+    border-color: var(--panel-bg) transparent transparent transparent;
+    z-index: 1;
+}
+
+.popup-title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: #fff;
+    word-break: keep-all;
+    padding-right: 16px;
+}
+
+.register-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.register-btn:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(255, 94, 0, 0.4);
+}
+
+/* Manual Pin Input Field Styling */
+#manual-name-input {
+    width: 100%;
+    background-color: #222224;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    text-align: center;
+}
+
+#manual-name-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(255, 94, 0, 0.2);
+}
+
+#manual-name-input::placeholder {
+    color: #666;
+}
+
+/* Permanent Custom Marker Styling */
+.custom-marker {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.marker-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.marker-pin {
+    width: 32px;
+    height: 32px;
+    background-color: var(--accent-color);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: -36px;
+    /* Shift up */
+    left: -16px;
+    /* Center */
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+}
+
+.marker-pin::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.marker-shadow {
+    width: 20px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    position: absolute;
+    top: -3px;
+    /* Center at the bottom coordinate */
+    left: -10px;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 94, 0, 0.7);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(255, 94, 0, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 94, 0, 0);
+    }
+}
+
+.marker-pin:hover {
+    animation: pulse 1s infinite;
+}
+
+/* Auth Overlay */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(18, 18, 18, 0.85);
+    /* 짙은 차콜색 */
+    backdrop-filter: blur(15px);
+    /* 지도가 살짝 비치는 효과 */
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-overlay.hidden {
+    opacity: 0;
+    transform: scale(1.2);
+    pointer-events: none;
+}
+
+.auth-box {
+    background: rgba(255, 255, 255, 0.1);
+    /* 투명도 10% 화이트 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 56px 48px;
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+.auth-box h2 {
+    font-family: var(--font-family);
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.auth-box p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+.input-group {
+    margin-bottom: 32px;
+    position: relative;
+}
+
+#nickname-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 18px;
+    padding: 12px 0;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+#nickname-input:focus {
+    border-bottom-color: var(--accent-color);
+}
+
+#nickname-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 300;
+}
+
+#auth-btn {
+    width: 100%;
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+#auth-btn:hover {
+    background-color: var(--accent-hover);
+    box-shadow: 0 0 24px rgba(255, 94, 0, 0.6);
+    /* 오렌지색 광채(glow) */
+    transform: translateY(-2px);
+}
+
+/* Shake Animation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-6px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+.shake {
+    animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}

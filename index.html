@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로컬 맛집 아카이브 (카카오맵)</title>
+
+    <meta name="description" content="미디어디자인과 동기들을 위한 로컬 맛집 아카이빙 지도">
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Custom Logic (Dynamically injects Kakao Map) -->
+</head>
+
+<body>
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-box">
+            <h2>DONGGI MAP</h2>
+            <p>Access restricted to media design students.</p>
+            <div class="input-group">
+                <input type="text" id="nickname-input" placeholder="Enter your nickname..." autocomplete="off">
+            </div>
+            <button id="auth-btn">ENTER MAP</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 왼쪽 30% 검색 리스트 패널 -->
+        <aside class="sidebar">
+            <header>
+                <h1>LOCAL <span>맛집 아카이브</span></h1>
+                <p>미디어디자인과 25명 동기들을 위한 시크릿 지도</p>
+            </header>
+
+            <section class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="장소를 검색하세요" autocomplete="off">
+                    <button id="search-btn">검색</button>
+                </div>
+                <!-- 검색 결과 리스트 (Kakao API 기반 거리순 정렬) -->
+                <ul id="search-results" class="results-list"></ul>
+            </section>
+
+            <section class="archive-section">
+                <h2>OUR ARCHIVE</h2>
+                <!-- 저장된 맛집 리스트 -->
+                <ul id="archive-list" class="archive-list"></ul>
+            </section>
+        </aside>
+
+        <!-- 오른쪽 70% 지도 영역 -->
+        <main class="map-container">
+            <div id="map"></div>
+        </main>
+    </div>
+
+    <!-- Custom Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>
