@@ -215,6 +215,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="margin-bottom: 12px;">
                         <input type="text" id="comment-input" placeholder="이 장소에 대한 추천/간단 메모..." autocomplete="off" style="width:100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); color:#fff; border-radius: 12px; outline:none; box-sizing: border-box; font-size: 13px;">
                     </div>
+                    <div id="reg-star-rating" style="display: flex; gap: 4px; margin-bottom: 16px; justify-content: center;">
+                        <span class="reg-star" data-idx="1" style="font-size: 28px; color: #444; cursor: pointer; transition: 0.2s;">★</span>
+                        <span class="reg-star" data-idx="2" style="font-size: 28px; color: #444; cursor: pointer; transition: 0.2s;">★</span>
+                        <span class="reg-star" data-idx="3" style="font-size: 28px; color: #444; cursor: pointer; transition: 0.2s;">★</span>
+                        <span class="reg-star" data-idx="4" style="font-size: 28px; color: #444; cursor: pointer; transition: 0.2s;">★</span>
+                        <span class="reg-star" data-idx="5" style="font-size: 28px; color: #444; cursor: pointer; transition: 0.2s;">★</span>
+                    </div>
                     <button class="glow-btn" id="final-reg-btn" style="background: linear-gradient(135deg, var(--accent-color), var(--accent-hover)); width: 100%; border:none; padding:12px; border-radius: 12px; color:#fff; font-weight:700; cursor:pointer;">등록 확정</button>
                 </div>
             `;
@@ -248,6 +255,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
+            let selectedRegRating = 0;
+            const regStars = snowboardCard.querySelectorAll('.reg-star');
+            regStars.forEach(star => {
+                star.onclick = () => {
+                    selectedRegRating = parseInt(star.getAttribute('data-idx'));
+                    regStars.forEach((s, idx) => {
+                        s.style.color = idx < selectedRegRating ? 'var(--accent-color)' : '#444';
+                    });
+                };
+            });
+
             snowboardCard.querySelector('#final-reg-btn').onclick = () => {
                 const category = snowboardCard.querySelector('#place-category').value;
                 const tag = snowboardCard.querySelector('#tag-input').value.trim() || category;
@@ -266,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const author = localStorage.getItem('current_nickname') || '익명';
 
                 snowboardCard.classList.add('hidden');
-                registerPlace(finalName, lat, lon, address, tag, menu, comment, author, category);
+                registerPlace(finalName, lat, lon, address, tag, menu, comment, author, category, selectedRegRating);
             };
         }
 
@@ -309,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, { location: latlng, radius: 20, sort: kakao.maps.services.SortBy.DISTANCE });
         });
 
-        async function registerPlace(name, lat, lon, address, tag, menu, comment, author, category) {
+        async function registerPlace(name, lat, lon, address, tag, menu, comment, author, category, rating) {
             const newPlaceData = {
                 nickname: author || '익명',
                 place_name: name,
@@ -319,7 +337,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 review: comment || '',
                 lat: lat,
                 lng: lon,
-                category: category || '식당'
+                category: category || '식당',
+                rating: rating || 0
             };
 
             const { data, error } = await supabase
@@ -327,8 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 .insert([newPlaceData]);
 
             if (error) {
-                console.error('Insert 오류:', error);
-                alert('Error saving data to the archive.');
+                console.error('Supabase Error Details:', error);
+                alert('데이터베이스 저장 중 에러가 발생했습니다:\n' + (error.message || '알 수 없는 오류'));
                 return;
             }
 
@@ -365,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     comment: row.review,
                     author: row.nickname,
                     category: row.category || '식당',
+                    rating: row.rating || 0,
                     photo_url: row.photo_url,
                     replies: []
                 }));
@@ -396,6 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 comment: row.review,
                                 author: row.nickname,
                                 category: row.category || '식당',
+                                rating: row.rating || 0,
                                 photo_url: row.photo_url,
                                 replies: []
                             };
